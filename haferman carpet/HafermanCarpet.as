@@ -28,9 +28,9 @@ package
 		 * @param	iteration fractal level
 		 * @return
 		 */
-		public function render( iteration ) : BitmapData {
+		public function render( iteration : uint ) : BitmapData {
 			
-			var size:int = Math.pow( 3, iteration );
+			var size : int = Math.pow( 3, iteration );
 			
 			var patch : Rectangle = new Rectangle ( 0, 0, size / 3, size / 3 );			
 			var canvas : BitmapData = new BitmapData ( size, size, false, filled ? 0x000000 : 0xFFFFFF );
@@ -45,9 +45,9 @@ package
 					destination.y = patch.height * Math.floor( i / 3 );
 					
 					offsprings[ i ] = new HafermanCarpet( ( i % 2 == 1 ) || ! filled );
-					var subBitmap:BitmapData = HafermanCarpet(offsprings[ i ]).render( iteration - 1 )
-					canvas.copyPixels( subBitmap, patch, destination );	
-					subBitmap.dispose();
+					var offspring:BitmapData = HafermanCarpet( offsprings[ i ] ).render( iteration - 1 );
+					canvas.copyPixels( offspring, patch, destination );	
+					offspring.dispose();
 				}
 			}
 			
